@@ -11,13 +11,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.iid.FirebaseInstanceId;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
     private String TAG = getClass().getName();
-
 
     @OnClick(R.id.btn_silent)
     public void silentButtonClick(View view){
@@ -32,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
     static final int NOTIFICATION_SETTING_ACTIVITY_RESULT = 1;
 
     @Override
@@ -40,20 +40,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        NotificationManager notificationManager =
-                (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
-//
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
-//                && !notificationManager.isNotificationPolicyAccessGranted()) {
-//
-//            Intent intent = new Intent(
-//                    android.provider.Settings
-//                            .ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
-//
-//            startActivity(intent);
-//        }
-
-
+        String token = FirebaseInstanceId.getInstance().getToken();
+        Log.d(TAG, "onCreate: token = "+token);
     }
 
     @Override
@@ -68,4 +56,5 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
 }
