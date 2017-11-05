@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1025700640862",
+    "firebase_url": "https://controlling-phone.firebaseio.com",
+    "project_id": "controlling-phone",
+    "storage_bucket": "controlling-phone.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1025700640862:android:94b47c48ded6c4f6",
+        "android_client_info": {
+          "package_name": "in.androidmart.controllingphone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1025700640862-q87u5ehr7ndbe23b1cccbqdc2l2qc6cl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIzQBI8xaqf0DzSfpBXU3ToO5XRNx8YYs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
