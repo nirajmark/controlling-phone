@@ -19,7 +19,7 @@
 
 **Learnings**
  <ol>
-     <li> It is basically an additional option to store information that can be accessed through the entire project. In this case, <meta-data> is defined outside <b>activity</b> tag and inside <b>application</b> tag. </li>
+     <li> META DATA is basically an additional option to store information that can be accessed through the entire project. In this case, <meta-data> is defined outside <b>activity</b> tag and inside <b>application</b> tag. </li>
  </ol>
  
  **Problem**
@@ -33,4 +33,28 @@
     <li> write method to save refreshed token to server </li>
     <li> Find a way to comunicate to phone even if phone is in background(possible solution IFTTT) - DONE </li>
 </ol>
+
+
+###Date : 15th nov,2017
+
+**Thought**  Google Oauth2 with android
+
+**Concept** startActivityForResult(), notification manger
+
+**Todo** 
+<ol>
+    <li> Using firebase send push notification to silent the phone remotely </li>
+</ol>
+
+###Date : 16th nov,2017
+
+**Thought**  Google Oauth2 with android
+
+**Concept** firebase oauth
+
+**Todo** 
+<ol>
+    <li> Using the data given by oauth to create user in database </li>
+</ol>
+
 
