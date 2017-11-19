@@ -57,4 +57,16 @@
     <li> Using the data given by oauth to create user in database </li>
 </ol>
 
+###Date : 18th nov,2017
+
+**Thought**  Working with retrofit library (Link: https://www.androidhive.info/2016/05/android-working-with-retrofit-http-library/ And http://square.github.io/retrofit/)
+
+**Concept** gson,retrofit
+
+**Todo** 
+<ol>
+    <li> Using the data given by oauth to create user in database </li>
+</ol>
+
+
 

@@ -24,6 +24,14 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.iid.FirebaseInstanceId;
+
+import in.androidmart.controllingphone.model.User;
+import in.androidmart.controllingphone.rest.RetrofitApiInterface;
+import in.androidmart.controllingphone.rest.RetrofitClient;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by niraj.markandey on 15/11/17.
@@ -70,6 +78,28 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         // [START initialize_auth]
         mAuth = FirebaseAuth.getInstance();
 
+        getSampleUserData();
+
+    }
+
+    private void getSampleUserData() {
+       RetrofitApiInterface apiService =
+                RetrofitClient.getClient().create(RetrofitApiInterface.class);
+
+        Call<User> call = apiService.getUser();
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User>call, Response<User> response) {
+
+                Log.d(TAG, "User Received: " + response.body().toString());
+            }
+
+            @Override
+            public void onFailure(Call<User>call, Throwable t) {
+                // Log error here since request failed
+                Log.e(TAG, t.toString());
+            }
+        });
     }
 
     @Override
@@ -82,6 +112,23 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
+        if (requestCode == RC_SIGN_IN) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            try {
+                // Google Sign In was successful, authenticate with Firebase
+                GoogleSignInAccount account = task.getResult(ApiException.class);
+                firebaseAuthWithGoogle(account);
+            } catch (ApiException e) {
+                // Google Sign In failed, update UI appropriately
+                Log.w(TAG, "Google sign in failed", e);
+                // [START_EXCLUDE]
+                updateUI(null);
+                // [END_EXCLUDE]
+            }
+        }
 
     }
 
@@ -178,6 +225,31 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
             findViewById(R.id.sign_in_button).setVisibility(View.GONE);
             findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
+
+            //creating user to be added
+            User newUser = new User(user.getUid(),user.getEmail(), FirebaseInstanceId.getInstance().getToken());
+            Log.d(TAG, "updateUI: newUser = "+newUser.toString());
+
+
+
+            RetrofitApiInterface apiService =
+                    RetrofitClient.getClient().create(RetrofitApiInterface.class);
+
+            Call<User> call = apiService.createUser(newUser);
+            call.enqueue(new Callback<User>() {
+                @Override
+                public void onResponse(Call<User>call, Response<User> response) {
+
+                    Log.d(TAG, "Response : " +response);
+                }
+
+                @Override
+                public void onFailure(Call<User>call, Throwable t) {
+                    // Log error here since request failed
+                    Log.e(TAG, t.toString());
+                }
+            });
+
         } else {
             mStatusTextView.setText(R.string.signed_out);
             mDetailTextView.setText(null);
